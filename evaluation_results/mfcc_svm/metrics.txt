@@ -1,0 +1,5 @@
+Model: mfcc_svm
+Accuracy: 0.8659
+Precision: 0.8662
+Recall: 0.8659
+F1-score: 0.8655

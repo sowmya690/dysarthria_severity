@@ -1,0 +1,5 @@
+Model: cnn
+Accuracy: 0.8747
+Precision: 0.8746
+Recall: 0.8747
+F1-score: 0.8730

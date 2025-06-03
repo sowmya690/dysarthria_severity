@@ -1,0 +1,5 @@
+Model: pca
+Accuracy: 0.8233
+Precision: 0.8233
+Recall: 0.8233
+F1-score: 0.8221

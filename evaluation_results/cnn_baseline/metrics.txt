@@ -1,0 +1,5 @@
+Model: cnn_baseline
+Accuracy: 0.7467
+Precision: 0.7447
+Recall: 0.7467
+F1-score: 0.7454

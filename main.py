@@ -206,19 +206,22 @@ def main(feature_extractor_type: str = 'enhanced', **feature_extractor_kwargs):
     # Initialize feature manager with explicit directory
     feature_manager = FeatureManager(feature_dir=processed_dir)
 
-    # --- Data Loading ---
-    data_dir = "C:\\Users\\Sowmya\\research\\processed_features\\data"  # Directory containing the audio files
+
+    project_root = os.path.dirname(os.path.abspath(__file__))  # Root of the current script
+    data_dir = os.path.join(project_root, "data")  # Assuming 'data' is a folder in your project directory
     if not os.path.exists(data_dir):
         raise ValueError(f"Data directory '{data_dir}' not found. Please make sure it exists.")
         
-    metadata_csv = "verified_metadata.csv"
+    metadata_csv = os.path.join(project_root, "verified_metadata.csv")
+
     if not os.path.exists(metadata_csv):
         raise ValueError(f"Metadata file '{metadata_csv}' not found. Please run generate_labels.py first.")
         
     print(f"[DEBUG] Loading metadata from {metadata_csv}")
-    metadata = pd.read_csv(metadata_csv)
-    metadata['file_path'] = metadata['file_path'].apply(lambda x: os.path.join(data_dir, x))
     
+    metadata = pd.read_csv(metadata_csv)
+    metadata['file_path'] = metadata['file_path'].apply(lambda x: os.path.join(project_root, data_dir, x))
+
     # Verify audio files exist
     existing_files = metadata['file_path'].apply(os.path.exists)
     if not all(existing_files):
@@ -463,13 +466,5 @@ def main(feature_extractor_type: str = 'enhanced', **feature_extractor_kwargs):
 
 
 if __name__ == "__main__":
-    # Example usage:
-    # For enhanced feature extractor:
-    # main(feature_extractor_type='enhanced', n_mfcc=13, n_mels=40)
-    
-    # For PCA feature extractor:
-    # main(feature_extractor_type='pca', n_pca_components=20)
-    
-    # Default: use enhanced feature extractor
-    # main()
+  
     main(feature_extractor_type='pca', n_pca_components=20)
